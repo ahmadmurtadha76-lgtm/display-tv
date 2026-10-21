@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Service Center</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { width: 100%; height: 100%; overflow: hidden; background-color: #0f172a; font-family: Arial, sans-serif; }
+        
+        /* Container Slide */
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .active { display: block; }
+
+        /* Desain Halaman Selamat Datang (Slide 1) */
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #ffffff;
+            text-align: center;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+        }
+        .welcome-screen h1 { font-size: 3.5rem; margin-bottom: 20px; color: #38bdf8; }
+        .welcome-screen p { font-size: 2rem; color: #cbd5e1; }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: Halaman Selamat Datang -->
+    <div id="slide1" class="slide welcome-screen active">
+        <h1>SELAMAT DATANG DI SERVICE CENTER</h1>
+        <p>Solusi & Layanan Perbaikan Terpercaya</p>
+    </div>
+
+    <!-- SLIDE 2: Dashboard Monitoring Excel Teams -->
+    <iframe id="slide2" class="slide" src="<iframe width="402" height="346" frameborder="0" scrolling="no" src="https://falentra365.sharepoint.com/sites/FALENTRASERVICEDANENGINEER/_layouts/15/Doc.aspx?sourcedoc={5f27339e-a4c7-4459-8a8a-8758bca2b26e}&action=embedview&wdAllowInteractivity=False&wdHideGridlines=True&wdHideHeaders=True&wdDownloadButton=True&wdInConfigurator=True&waccluster=PSG3&edaebp=&edaebf=res50"></iframe>"></iframe>
+
+    <!-- SLIDE 3: List Teknisi Bertugas (Bisa dari Excel/Halaman Web Lain) -->
+    <iframe id="slide3" class="slide" src="LINK_EMBED_EXCEL_TEKNISI"></iframe>
+
+    <script>
+        // Pengaturan perpindahan slide
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        const displayDuration = 20000; // 20000 ms = 20 Detik
+
+        function showNextSlide() {
+            // Sembunyikan slide sekarang
+            slides[currentSlide].classList.remove('active');
+            
+            // Pindah ke slide berikutnya (kembali ke awal jika sudah di akhir)
+            currentSlide = (currentSlide + 1) % slides.length;
+            
+            // Tampilkan slide baru
+            slides[currentSlide].classList.add('active');
+
+            // Jika slide yang tampil adalah iframe Excel, refresh iframe agar data selalu segar
+            if (slides[currentSlide].tagName === 'IFRAME') {
+                slides[currentSlide].src = slides[currentSlide].src;
+            }
+        }
+
+        // Jalankan pergantian slide otomatis
+        setInterval(showNextSlide, displayDuration);
+    </script>
+</body>
+</html>
